@@ -2,6 +2,8 @@
 
 A simple Todo app built with Vala and GTK 4 + Adwaita. Similar to [this other project I did recently](https://github.com/Miqueas/Java-Swing-Todo-App)
 
+![Screenshot](screenshot.png)
+
 # Building
 
 You will need the following dependencies:

@@ -11,4 +11,8 @@ public sealed class App : Adw.Application {
     base.startup();
     new AppWindow(this);
   }
+
+  public static int main(string[] args) {
+    return new App().run(args);
+  }
 }

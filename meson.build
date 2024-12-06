@@ -13,7 +13,6 @@ gee = dependency('gee-0.8', required: true)
 
 src = [
   'src/app.vala',
-  'src/main.vala',
   'src/constants.vala',
   'src/models/task.vala',
   'src/widgets/header.vala',

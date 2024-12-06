@@ -1,1 +1,0 @@
-int main(string[] args) { return new App().run(args); }

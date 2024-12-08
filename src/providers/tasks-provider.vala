@@ -11,32 +11,46 @@ public sealed class TasksProvider : Object {
     }
   }
 
-  public Gee.ArrayList<Task> tasks { get; private set; }
-  public signal void changed();
+  public ListStore tasks { get; private set; }
 
   public TasksProvider() {
-    tasks = new Gee.ArrayList<Task>();
+    tasks = new ListStore(typeof(Task));
   }
 
   public void add_task(string text, bool done) {
-    tasks.add( new Task(tasks.size, text, done));
-    changed();
+    tasks.append(new Task(tasks.n_items, text, done));
   }
 
   public void remove_task(uint id) {
-    var task = tasks.first_match((item) => item.id == id);
-    if (task == null) return;
-    tasks.remove(task);
-    changed();
+    var index = get_task_index_by_id(id);
+    if (index == null) return;
+    tasks.remove(index);
   }
 
   public void set_done(uint id, bool done) {
-    var task = tasks.first_match((item) => item.id == id);
-    changed();
-    if (task == null) return;
-    var index = tasks.index_of(task);
-    tasks.remove_at(index);
-    tasks.insert(index, new Task(task.id, task.text, done));
-    changed();
+    var index = get_task_index_by_id(id);
+    var task = get_task_by_id(id);
+    if (index == null || task == null) return;
+    task.done = done;
+    tasks.remove(index);
+    tasks.insert(index, task);
+  }
+
+  private Task? get_task_by_id(uint id) {
+    for (var index = 0; index < tasks.n_items; index++) {
+      Task task = (Task) tasks.get_item(index);
+      if (task.id == id) return task;
+    }
+
+    return null;
+  }
+
+  private uint? get_task_index_by_id(uint id) {
+    for (var index = 0; index < tasks.n_items; index++) {
+      Task task = (Task) tasks.get_item(index);
+      if (task.id == id) return index;
+    }
+
+    return null;
   }
 }

@@ -32,8 +32,6 @@ public sealed class TasksProvider : Object {
     var task = get_task_by_id(id);
     if (index == null || task == null) return;
     task.done = done;
-    tasks.remove(index);
-    tasks.insert(index, task);
   }
 
   private Task? get_task_by_id(uint id) {
